@@ -1,0 +1,498 @@
+body, p, ul, li, input {
+  margin: 0px;
+  padding: 0px;
+  font-family:"Myriad Set Pro","Helvetica Neue","Helvetica","Arial",sans-serif;
+};
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+@import "mixins";
+
+.header {
+  width: 100%;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.8);
+  //padding: 0 20px;
+  //overflow: hidden;
+  position: absolute;
+  z-index:99;
+  .svgs {
+    max-width: 980px;
+    height: 44px;
+    margin: 0 auto;
+    .phone-cont{
+      display: none;
+      height: 100%;
+      .phone-list{
+        height:100%;
+        .lefts{
+          width: 10%;
+          height:100%;
+          float: left;
+          .btns{
+            display: block;
+            width: 20px;
+            height: 100%;
+            margin: 0 auto;
+            background-image: url(images/sousuo_small.svg);
+            background-repeat: no-repeat;
+            background-position: center center;
+          }
+        }
+        .middles{
+          height:100%;
+          width: 80%;
+          margin:0 auto;
+          float: left;
+          .tubiaos{
+            display: block;
+            width:20px;
+            height: 100%;
+            margin:0 auto;
+            background-image: url(images/tubiao_small.svg);
+            background-repeat: no-repeat;
+            background-position: center center;
+          }
+        }
+        .rights{
+          height:100%;
+          width:10%;
+          float: right;
+          .bags{
+            display: block;
+            width:18px;
+            height: 100%;
+            margin:0 auto;
+            background-image: url(images/bag_small.svg);
+            background-repeat: no-repeat;
+            background-position: center center;
+          }
+        }
+      }
+      @include ons{
+        display: block;
+      }
+      .alists{
+        min-height:600px;
+        background-color:rgb(0,0,0);
+        overflow: hidden;
+        z-index:110;
+        display:none;
+        .searchs input{
+          width: 95%;
+          height: 100%;
+          float: right;
+          background: #000;
+          border: none;
+          color: #fff
+        }
+        li{
+          height:48px;
+          width:80%;
+          margin: 0 auto;
+          border-bottom:1px solid #fff;
+          a{
+            display: block;
+            width:100%;
+            height:100%;
+          }
+
+          $nav-map: (
+                  "mac":31px,
+                  "ipad":30px,
+                  "iphone":48px,
+                  "watch":44px,
+                  "TV":20px,
+                  "music":40px,
+                  "support":57px
+          );
+          @each $c in map_keys($nav-map) {
+            //@debug(map-get($nav-map,$c));
+            .#{$c} {
+              width: map-get($nav-map, $c);
+              background: url("images/" + $c +".svg") no-repeat  center;
+            }
+          }
+        }
+      }
+
+    }
+    .com-cont{
+      @include ons{
+        display: none;
+      }
+    }
+  }
+  //.phone-cont.takes .alists{
+  //  display: block;
+  //  //transform:translate3d(0,0,0);
+  //}
+
+  .searchBox{
+    height:0;
+  }
+  .searchBox .search-box {
+    width: 70%;
+    height: 44px;
+    background-color: #333;
+    position: relative;
+    top: -44px;
+    left: 1070px;
+    opacity: 0;
+    input{
+      width:95%;
+      height: 90%;
+      float: right;
+      background-color: #333;
+      border:1px solid #fff;
+      color:#fff;
+    }
+  }
+  .searchBox .card{
+    //display: block;
+    width:49%;
+    height:12em;
+    position: absolute;
+    top:44px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: #fff;
+    opacity: 0;
+    padding: 5px 20px;
+    .cards{
+      position: relative;
+      left: 1070px;
+      width:100%;
+      height:30px;
+      color: #838383;
+      a{
+        color: #838383;
+        font-size: 12px;
+        margin-left:50px;
+        line-height:30px;
+      }
+      a:hover{
+        color:#0070c9;
+      }
+    }
+    .cards.c1:hover{
+      background: #eeeeee;
+    }
+    @for $i from 1 through 10 {
+      .c1:nth-child(#{$i}){
+        transition: left 0.8s ease $i*0.2s;
+      }
+    }
+  }
+  .nav-list {
+    height: 44px;
+    text-align: justify;
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 100%;
+      height: 0;
+    }
+    .nav-item {
+      display: inline-block;
+      height: 44px;
+      transition: opacity 0.8s ease;
+      z-index:101;
+      a {
+        display: block;
+        height: 44px;
+      }
+    }
+    .nav-item:hover {
+      opacity: 0.5;
+    }
+  }
+  $nav-map: (
+          "tubiao":20px,
+          "mac":31px,
+          "ipad":30px,
+          "iphone":48px,
+          "watch":44px,
+          "TV":20px,
+          "music":40px,
+          "support":57px,
+          "sousuo":20px,
+          "bag":18px
+  );
+  @each $c in map_keys($nav-map) {
+    //@debug(map-get($nav-map,$c));
+    .#{$c} {
+      width: map-get($nav-map, $c);
+      background: url("images/" + $c +".svg") no-repeat center center;
+    }
+  }
+
+}
+
+.svgs.searching .nav-list .menu {
+  transition: transform 0.8s ease;
+  transform: scale(0, 0);
+}
+.svgs.searching .card{
+  transition: opacity 0.8s ease ;
+  opacity: 1;
+}
+
+.svgs.searching .searchBox .cards{
+  left: 0;
+}
+
+.svgs .nav-list .menu{
+  transition: transform 0.8s ease;
+  transform: scale(1, 1);
+}
+
+.svgs.searching .searchBox .search-box{
+  transition: opacity 0.8s ease , left 0.8s ease;
+  opacity: 1;
+  left: 0;
+  right:0;
+  margin: auto;
+}
+
+.svgs .searchBox .search-box{
+  transition: opacity 0.8s ease ,left 0.8s ease;
+  opacity: 0;
+  left:1070px;
+  right:0;
+  margin: auto;
+
+}
+.carousel{
+  width: 100%;
+  height:100%;
+  min-height: 200px;
+  height:calc(100vh - 100px);
+  max-height:1800px;
+  position: relative;
+  overflow: hidden;
+  .gallery-slide-wrapper{
+    height:100%;
+    position: relative;
+    a{
+      display: none;
+      position: absolute;
+      width:100%;
+      height: 100%;
+      top:44px;
+      background-repeat: no-repeat;
+      background-position: bottom;
+      background-size: contain;
+      transition: transform 1s ease;
+      transform: translate3d(0,0,0);
+      &.active{
+        transform: translate3d(0,0,0);
+        display: block;
+        z-index:1;
+      }
+      &.leave{
+        transform: translate3d(-100px,0,0);
+        display:block;
+      }
+      &.right{
+        transform:translate3d(100%,0,0);
+        z-index:2;
+        display:block;
+      }
+      &.enter{
+        transform:translate3d(100%,0,0);
+        display: block;
+        z-index:3;
+      }
+    }
+    .iphones{
+      background-color: #000;
+      background-image: url(images/iphones_large.jpg);
+      @include onm{
+        background-image: url(images/iphones_square_large.jpg);
+      }
+      @include ons{
+        background-image: url(images/iphones_portrait_small.jpg);
+      }
+    }
+    .watchs{
+      background-color: #f3f3f3;
+      background-image: url(images/watchs_large.jpg);
+      @include onm{
+        background-image: url(images/watchs_medium.jpg);
+      }
+      @include ons{
+        background-image: url(images/watchs_portrait_small.jpg);
+      }
+    }
+    .airpods{
+      background-color: #ffffff;
+      background-image: url(images/airpods_large.jpg);
+      @include onm{
+        background-image: url(images/airpods_square_large.jpg);
+      }
+      @include ons{
+        background-image: url(images/airpods_portrait_small.jpg);
+      }
+    }
+    .event{
+      background-color: #000;
+      background-image: url(images/event_large.jpg);
+      @include onm{
+        background-image: url(images/event_medium.jpg);
+      }
+      @include ons{
+        background-image: url(images/event_portrait_large.jpg);
+      }
+    }
+  }
+  .tab-list{
+    width:100%;
+    //height:2px;
+    //padding:10px 0;
+    position: absolute;
+    bottom:0;
+    z-index:50;
+    .dot-nav{
+      width:250px;
+      height: 100%;
+      margin:0 auto;
+      text-align: justify;
+      &::after{
+        content:'';
+        display: inline-block;
+        width: 100%;
+        height: 0;
+      }
+      .dot{
+        width: 50px;
+        display: inline-block;
+        height: 2px;
+        background-color: #dcdcdc;
+        opacity: 0.8;
+        background-clip: content-box;
+        padding: 10px 0;
+      }
+      .dot.active{
+        background-color: #808080;
+      }
+    }
+  }
+}
+
+
+.ads{
+  border-bottom:1px solid #000;
+  li{
+    height:200px;
+    box-sizing: border-box;
+  }
+}
+
+.row{
+  overflow: hidden;
+}
+.col{
+  float: left;
+  //border-left: 1px solid #000;
+}
+@for $i from 1 through 12{
+  .d-#{$i}{
+    width:percentage($i/12)
+  }
+}
+
+@include onm{
+  @for $i from 1 through 12{
+    .m-#{$i}{
+      width:percentage($i/12)
+    }
+  }
+}
+
+@include ons{
+  @for $i from 1 through 12{
+    .s-#{$i}{
+      width:percentage($i/12)
+    }
+  }
+}
+
+$ads-list: "watchos","swift_playgrounds","ios","music_festival";
+@each $ad in $ads-list {
+  .#{$ad}{
+    background: url("images/" + $ad + "_large.jpg") no-repeat center center;
+    @include onm{
+      background: url("images/" + $ad + "_medium.jpg") no-repeat center center;
+    }
+    @include ons{
+      background: url("images/" + $ad + "_small.jpg") no-repeat center center;
+    }
+  }
+}
+.foot-content {
+  width: 980px;
+  margin: 0 auto;
+  margin-top: 30px;
+  .cont {
+    width: 20%;
+    float: left;
+    ul {
+      margin-top: 30px;
+    }
+    span {
+      font-size: 12px;
+      font-weight: bold;
+    }
+    li {
+      font-size: 12px;
+      padding: 4px 0;
+    }
+    a {
+      color: #838383;
+    }
+    @include onm {
+      width: 80%;
+      margin: 0 10%;
+      ul {
+        border-bottom: 1px solid silver;
+        cursor: pointer;
+      }
+      ul li {
+        display: none;
+      }
+      //.alists{
+      //  display: block;
+      //}
+    }
+  }
+}
+
+.footer .bottoms {
+  width: 980px;
+  float: left;
+  margin-left: 14%;
+  a:hover{
+    text-decoration: underline;
+  }
+  .shopping{
+    font-size: 12px;
+    border-bottom: 1px solid silver;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .arights{
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    a{
+      margin: 0 5px 0 5px;
+    }
+  }
+}
